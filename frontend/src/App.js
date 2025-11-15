@@ -74,10 +74,14 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <div className="glyph" aria-hidden></div>
-        <h1>
-          ADVISOR <span className="accent">—</span> CINEMATIC MODE
-        </h1>
+        <div className="logo">
+          <span role="img" aria-label="heart" className="heart-emoji">💖</span>
+          <h1>
+            Your Caring Companion
+          </h1>
+          <span role="img" aria-label="heart" className="heart-emoji">💖</span>
+        </div>
+        <p className="subtitle">Always here to listen and support you</p>
       </header>
 
       <div className="chat-container">
@@ -99,12 +103,16 @@ function App() {
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type your message..."
+            placeholder="Share your thoughts... 💭"
             disabled={isLoading}
-            aria-label="Message"
+            aria-label="Type your message"
           />
-          <button type="submit" disabled={isLoading || !message.trim()}>
-            {isLoading ? '...' : 'SEND'}
+          <button 
+            type="submit" 
+            disabled={isLoading || !message.trim()}
+            aria-label="Send message"
+          >
+            {isLoading ? 'Sending...' : 'Send'}
           </button>
         </form>
       </div>
