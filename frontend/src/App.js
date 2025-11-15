@@ -1,6 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 
+// Simple typewriter effect for assistant responses without changing data flow
+function Typewriter({ text, speed = 20 }) {
+  const [displayed, setDisplayed] = useState('');
+  const indexRef = useRef(0);
+
+  useEffect(() => {
+    setDisplayed('');
+    indexRef.current = 0;
+    const interval = setInterval(() => {
+      indexRef.current += 1;
+      setDisplayed(text.slice(0, indexRef.current));
+      if (indexRef.current >= text.length) {
+        clearInterval(interval);
+      }
+    }, speed);
+    return () => clearInterval(interval);
+  }, [text, speed]);
+
+  return <span className="typewriter">{displayed}</span>;
+}
+
 function App() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
@@ -41,7 +62,7 @@ function App() {
       setMessages((prev) => [
         ...prev,
         {
-          text: "By order of the Peaky fookin' Blinders, we've got a problem here.",
+          text: "Something went wrong. Please try again.",
           sender: 'error',
         },
       ]);
@@ -53,22 +74,24 @@ function App() {
   return (
     <div className="app">
       <header className="header">
+        <div className="glyph" aria-hidden></div>
         <h1>
-          TOMMY SHELBY <span className="accent">—</span> ADVICE FOR BLOODY SITUATIONS
+          ADVISOR <span className="accent">—</span> CINEMATIC MODE
         </h1>
-        <div className="hat-icon" aria-hidden>🎩</div>
       </header>
 
       <div className="chat-container">
         <div className="messages" ref={listRef}>
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.sender}`}>
-              {msg.text}
+              {msg.sender === 'shelby' ? (
+                <Typewriter text={msg.text} />
+              ) : (
+                msg.text
+              )}
             </div>
           ))}
-          {isLoading && (
-            <div className="message shelby">*takes a drag from his cigarette*</div>
-          )}
+          {isLoading && <div className="message loading" aria-hidden></div>}
         </div>
 
         <form onSubmit={handleSubmit} className="message-form">
@@ -76,12 +99,12 @@ function App() {
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Ask Thomas Shelby for advice..."
+            placeholder="Type your message..."
             disabled={isLoading}
-            aria-label="Ask Thomas Shelby"
+            aria-label="Message"
           />
           <button type="submit" disabled={isLoading || !message.trim()}>
-            {isLoading ? '...' : 'ASK'}
+            {isLoading ? '...' : 'SEND'}
           </button>
         </form>
       </div>
