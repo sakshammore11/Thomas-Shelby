@@ -14,3 +14,4 @@ backend/.env
 # Build outputs
 frontend/build/
 .vercel/
+.vercel
