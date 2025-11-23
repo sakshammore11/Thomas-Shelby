@@ -1,16 +1,21 @@
 :root {
-  --bg-start: #f5f0ff;
-  --bg-end: #eae4ff;
-  --text: #3a3650;
-  --primary: #7e57c2;
-  --primary-light: #b085f5;
-  --primary-dark: #4d2c91;
-  --accent: #5e35b1;
-  --glass: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(126, 87, 194, 0.15);
-  --shadow: 0 4px 30px rgba(94, 53, 177, 0.1);
-  --aura: radial-gradient(circle at 70% 30%, rgba(126, 87, 194, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-  --mandala: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 0L0 100l100 100 100-100L100 0zm0 20l80 80-80 80-80-80 80-80z' fill='%237e57c2' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
+  --bg-start: #f9f0f2;
+  --bg-end: #f0e4e8;
+  --text: #3a2d38;
+  --primary: #c79288;
+  --primary-light: #e8c8c2;
+  --primary-dark: #8c5e57;
+  --accent: #b3889e;
+  --glass: rgba(255, 248, 250, 0.9);
+  --glass-border: rgba(195, 155, 170, 0.15);
+  --shadow: 0 4px 30px rgba(179, 136, 158, 0.08);
+  --aura: radial-gradient(circle at 70% 30%, rgba(199, 146, 136, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E");
+  --paper-texture: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), 
+                    linear-gradient(90deg, #fff0 0%, #fff0 1px, #fff0 1px, #fff0 100%), 
+                    linear-gradient(#fff0 1px, transparent 0), 
+                    linear-gradient(90deg, #fff0 1px, transparent 1px);
+  background-size: auto, 20px 20px, 20px 20px, 20px 20px;
 }
 
 * {
@@ -39,12 +44,13 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--aura), var(--mandala);
-  background-size: 200px 200px;
+  background: var(--aura), var(--paper-texture), var(--grain);
+  background-size: 200% 200%, 20px 20px, auto;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.8;
-  animation: auraPulse 30s ease-in-out infinite alternate;
+  opacity: 0.5;
+  animation: auraPulse 40s ease-in-out infinite alternate;
+  mix-blend-mode: overlay;
 }
 
 .app {
@@ -84,16 +90,19 @@ body::before {
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
 .header h1 {
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   color: var(--primary-dark);
-  font-weight: 500;
+  font-weight: 400;
   margin: 0;
   font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 0.03em;
-  text-shadow: 1px 1px 2px rgba(94, 53, 177, 0.1);
+  letter-spacing: 0.05em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
   position: relative;
   display: inline-block;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.08em;
 }
 
 .header h1::after {
@@ -102,10 +111,11 @@ body::before {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 2px;
+  width: 80px;
+  height: 1px;
   background: linear-gradient(90deg, transparent, var(--primary), transparent);
-  opacity: 0.7;
+  opacity: 0.5;
+  animation: linePulse 6s ease-in-out infinite;
 }
 
 .subtitle {
@@ -123,11 +133,15 @@ body::before {
 }
 
 .subtitle {
-  color: var(--accent);
-  font-size: 0.95rem;
-  opacity: 0.9;
-  margin-top: 0.5rem;
-  font-weight: 500;
+  color: var(--primary-dark);
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-top: 0.8rem;
+  font-weight: 300;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
 }
 
 .chat-container {
@@ -136,15 +150,19 @@ body::before {
   flex-direction: column;
   background: var(--glass);
   border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: all 0.4s ease;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 245, 248, 0.8);
   position: relative;
   overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 95%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .chat-container::before {
@@ -173,15 +191,20 @@ body::before {
 
 .message {
   max-width: 80%;
-  padding: 12px 16px;
+  padding: 14px 18px;
   border-radius: 18px;
-  line-height: 1.5;
+  line-height: 1.6;
   position: relative;
-  font-size: 0.95rem;
+  font-size: 1rem;
   transform: translateY(6px);
   opacity: 0;
-  animation: fadeSlide 380ms ease forwards;
+  animation: fadeSlide 480ms ease-out forwards;
   transition: all 0.3s ease;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .message:hover {
@@ -191,13 +214,15 @@ body::before {
 
 .message.user {
   align-self: flex-end;
-  background: rgba(240, 234, 255, 0.9);
+  background: rgba(255, 248, 250, 0.9);
   color: #3a2c4a;
-  border: 1px solid rgba(126, 87, 194, 0.2);
-  box-shadow: 0 2px 12px rgba(126, 87, 194, 0.1);
+  border: 1px solid rgba(199, 146, 136, 0.15);
+  box-shadow: 0 2px 12px rgba(199, 146, 136, 0.05);
   border-radius: 18px 18px 4px 18px;
   backdrop-filter: blur(5px);
   max-width: 85%;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
   border-left: 4px solid var(--primary-light);
   transition: all 0.3s ease;
 }
@@ -205,17 +230,19 @@ body::before {
 .message.shelby {
   align-self: flex-start;
   background: rgba(255, 255, 255, 0.98);
-  color: #2d223d;
-  border: 1px solid rgba(126, 87, 194, 0.1);
-  box-shadow: 0 4px 20px rgba(94, 53, 177, 0.08);
-  border-radius: 18px 18px 18px 4px;
-  position: relative;
+  color: #2d1f3d;
+  border: 1px solid rgba(199, 146, 136, 0.1);
+  box-shadow: 0 2px 12px rgba(199, 146, 136, 0.05);
+  border-radius: 4px 18px 18px 18px;
   backdrop-filter: blur(5px);
-  animation: floatUp 0.5s ease-out forwards;
-  border-left: 4px solid var(--primary);
   max-width: 85%;
-  transition: all 0.3s ease;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
   line-height: 1.7;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  border-left: 4px solid var(--primary-light);
+  transition: all 0.3s ease;
 }
 
 .message.shelby::before {
@@ -369,9 +396,14 @@ body::before {
 }
 
 @keyframes auraPulse {
-  0% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.02); }
-  100% { opacity: 0.6; transform: scale(1); }
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 0.6;
+  }
 }
 
 @keyframes floatUp {
@@ -415,7 +447,7 @@ body::before {
 @keyframes fadeSlide {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 

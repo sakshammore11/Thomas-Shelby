@@ -77,11 +77,11 @@ function App() {
         <div className="logo">
           <span role="img" aria-label="heart" className="heart-emoji">💖</span>
           <h1>
-            Your Caring Companion
+            softly, you exist
           </h1>
           <span role="img" aria-label="heart" className="heart-emoji">💖</span>
         </div>
-        <p className="subtitle">Always here to listen and support you</p>
+        <p className="subtitle">a quiet place for your thoughts to rest</p>
       </header>
 
       <div className="chat-container">
